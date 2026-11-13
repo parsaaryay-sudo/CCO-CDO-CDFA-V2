@@ -195,6 +195,15 @@ background:linear-gradient(160deg,rgba(18,31,56,.92),rgba(10,18,34,.92));box-sha
 .qtext{font-size:1.12rem;font-weight:600;color:#fff;margin:.25rem 0 .6rem;line-height:1.4;}
 .stApp h3{font-weight:700;padding-bottom:.35rem;border-bottom:1px solid var(--line);}
 [data-testid="stRadio"] label{padding:.2rem 0;}
+.refgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;}
+.ref-card{position:relative;display:flex;flex-direction:column;gap:.35rem;padding:1.05rem 1.2rem;border:1px solid var(--line);border-radius:16px;
+background:linear-gradient(160deg,rgba(18,31,56,.92),rgba(10,18,34,.92));transition:border-color .2s,transform .2s;}
+.ref-card:hover{border-color:rgba(56,189,248,.55);transform:translateY(-2px);}
+.ref-tag{align-self:flex-start;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);
+border:1px solid rgba(56,189,248,.45);border-radius:999px;padding:.12rem .6rem;background:rgba(56,189,248,.07);}
+.ref-title{font-weight:650;color:#fff;line-height:1.35;} .ref-pub{color:var(--muted);font-size:.85rem;flex:1;}
+.ref-card a{font-family:var(--mono);font-size:.8rem;color:var(--green);text-decoration:none;margin-top:.3rem;}
+.ref-card a:hover{text-decoration:underline;} .refnone{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:.3rem;}
 /* comparison table */
 .cmp th{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(180deg,#12234a,#0d1a35);}
 .cmp tr:nth-child(even) td{background:#0e192d;} .cmp tr:hover td{background:#13233f;}

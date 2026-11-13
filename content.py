@@ -192,3 +192,21 @@ QUIZ = [
                   "Both cost exactly the same fuel", "Level-offs never affect fuel burn"],
          answer=0, why="Section 8.2 (fuel trade-off principle): a forced level segment during climb burns significantly more fuel than an equivalent segment during descent."),
 ]
+
+
+# (title, publisher, url or None, tag)
+REFERENCES = [
+    ("ICAO Doc 9931 - Continuous Descent Operations (CDO) Manual", "International Civil Aviation Organization (ICAO)",
+     "https://www.icao.int/sites/default/files/sp-files/APAC/APAC-RSO/PBN%20Air%20Space%20Design%20Workshop%202016/12%20CDO%20and%20CCO.pdf", "ICAO"),
+    ("FAA AC 120-108A - Continuous Descent Final Approach (CDFA)", "Federal Aviation Administration (FAA)",
+     "https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentID/1041707", "FAA"),
+    ("EUROCONTROL CCO & CDO Concept and Action Plan", "European Organisation for the Safety of Air Navigation (EUROCONTROL)",
+     "https://www.eurocontrol.int/concept/continuous-climb-and-descent-operations", "EUROCONTROL"),
+    ("ICAO Model Advisory Circular - Instrument Approach Procedures Using CDFA", "ICAO Regional Aviation Safety Group (RASG-APAC)",
+     "https://www.icao.int/sites/default/files/APAC/RASG/SafetyTools/07-Model-Advisory-Circular-Instrument-Approach-Procedures-Using-Continuous-Descent-Final-Approach-Techniques.pdf", "ICAO"),
+    ("How To Fly A Continuous Descent On Final Approach (CDFA vs Dive-and-Drive)", "Boldmethod Aviation Flight Training",
+     "https://www.boldmethod.com/learn-to-fly/navigation/flying-a-non-precision-approach-with-continuous-descent-final-approach-cdfa-vs-dive-and-drive/", "Training"),
+    ("Continuous Climb & Descent Operations in Air Traffic Management", "IFATCA / TTATCA",
+     "https://www.ttatca.org/post/continuous-climb-descent-operations", "IFATCA"),
+    ("Comprehensive Research Report: CCO/CDO and CDFA in Aviation and ATC", "Background research report", None, "Report"),
+]

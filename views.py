@@ -13,6 +13,13 @@ def page_header(title: str, sub: str = "") -> None:
     st.markdown(f'<div class="page-title">{title}</div><div class="page-sub">{sub}</div>', unsafe_allow_html=True)
 
 
+def _ref_html(title, publisher, url, tag):
+    link = (f'<a href="{url}" target="_blank" rel="noopener noreferrer">Open source &#8599;</a>' if url
+            else '<span class="refnone">No link provided</span>')
+    return (f'<div class="ref-card"><span class="ref-tag">{tag}</span><div class="ref-title">{title}</div>'
+            f'<div class="ref-pub">{publisher}</div>{link}</div>')
+
+
 # ----------------------------------------------------------------------------
 def home() -> None:
     st.markdown(hero(), unsafe_allow_html=True)
@@ -36,6 +43,8 @@ def home() -> None:
     for col, (title, items) in zip(cols, C.BENEFITS_BLOCK.items()):
         with col:
             st.markdown(card(title, bullets(items), "c"), unsafe_allow_html=True)
+    st.markdown("## References")
+    st.markdown('<div class="refgrid">' + "".join(_ref_html(*r) for r in C.REFERENCES) + "</div>", unsafe_allow_html=True)
 
 
 
