@@ -126,7 +126,11 @@ background:rgba(8,13,24,.96);border-top:1px solid var(--line);}
 @media (max-width:760px){.hero{grid-template-columns:1fr;padding:1.3rem;} .radar{margin:0 auto;width:170px;height:170px;}
 .mvalue{font-size:1.45rem;} .block-container{padding-left:1rem;padding-right:1rem;}}
 /* ===== polish layer ===== */
-[data-testid="stToolbar"],[data-testid="stDecoration"]{display:none;}
+[data-testid="stDecoration"],[data-testid="stToolbarActions"],[data-testid="stMainMenu"],.stAppDeployButton{display:none !important;}
+[data-testid="stExpandSidebarButton"]{display:flex !important;visibility:visible !important;color:var(--green) !important;background:rgba(57,255,136,.1);
+border:1px solid rgba(57,255,136,.45);border-radius:10px;}
+[data-testid="stExpandSidebarButton"]:hover{background:rgba(57,255,136,.2);box-shadow:0 0 14px rgba(57,255,136,.3);}
+[data-testid="stExpandSidebarButton"] svg,[data-testid="stExpandSidebarButton"] span{color:var(--green) !important;fill:var(--green) !important;}
 .stApp{background:
 radial-gradient(1000px 520px at 88% -10%,rgba(57,255,136,.09),transparent 60%),
 radial-gradient(800px 480px at -5% 5%,rgba(56,189,248,.08),transparent 55%),
