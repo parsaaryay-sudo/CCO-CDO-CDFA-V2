@@ -1,4 +1,4 @@
-"""Plotly figure builders (no Streamlit dependency). One shared light, high-contrast template."""
+"""Plotly figure builders (no Streamlit dependency). One shared dark 'radar console' template."""
 from __future__ import annotations
 
 import numpy as np
@@ -13,7 +13,7 @@ PLOT_CONFIG = {
     # The camera icon in the chart toolbar saves a PNG (works offline, no extra packages).
     "toImageButtonOptions": {"format": "png", "scale": 2, "filename": "atc_lab_chart"},
 }
-AXIS_LINE = "#7b8ead"
+AXIS_LINE = "#2a3d62"
 
 
 def _fs(pres: bool) -> int:
@@ -21,19 +21,19 @@ def _fs(pres: bool) -> int:
 
 
 def style(fig, title: str, pres: bool, height: int = 540, bottom: int = 150):
-    """Apply the shared template (light background, readable fonts, hover style)."""
+    """Apply the shared template (dark background, readable fonts, hover style)."""
     fs = _fs(pres)
     fig.update_layout(
-        title=dict(text=title, x=0.01, y=0.985, xanchor="left", yanchor="top", font=dict(size=fs + 4, color=TEXT)),
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="#ffffff",
+        title=dict(text=title, x=0.01, y=0.985, xanchor="left", yanchor="top", font=dict(size=fs + 4, color="#ffffff")),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(8,15,30,.85)",
         font=dict(family=FONT_STACK, color=TEXT, size=fs),
         height=height + (60 if pres else 0),
         margin=dict(l=76, r=28, t=96, b=bottom),
         legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="right", x=1.0,
                     bgcolor="rgba(0,0,0,0)", font=dict(size=fs - 1, color=TEXT)),
-        hoverlabel=dict(bgcolor="#ffffff", bordercolor=GREEN, font=dict(family=MONO_STACK, size=fs - 1, color=TEXT)),
+        hoverlabel=dict(bgcolor="#0f1b33", bordercolor=GREEN, font=dict(family=MONO_STACK, size=fs - 1, color=TEXT)),
     )
-    axis = dict(gridcolor="rgba(15,27,51,.12)", griddash="dot", zerolinecolor=AXIS_LINE, linecolor=AXIS_LINE, showline=True, ticks="outside", tickcolor=AXIS_LINE,
+    axis = dict(gridcolor="rgba(120,160,255,.10)", griddash="dot", zerolinecolor=AXIS_LINE, linecolor=AXIS_LINE, showline=True, ticks="outside", tickcolor=AXIS_LINE,
                 tickfont=dict(size=fs - 1), title_font=dict(size=fs))
     fig.update_xaxes(**axis)
     fig.update_yaxes(**axis)
@@ -49,7 +49,7 @@ def attach_animation(fig, n_static: int, frames: list, labels: list, frame_ms: i
     fig.update_layout(
         updatemenus=[dict(
             type="buttons", direction="left", x=0.0, y=-0.19, xanchor="left", yanchor="top", showactive=False,
-            bgcolor="#eef3fa", bordercolor=GREEN, font=dict(color=GREEN, size=fs), pad=dict(r=6, t=2),
+            bgcolor="#12233f", bordercolor=GREEN, font=dict(color=GREEN, size=fs), pad=dict(r=6, t=2),
             buttons=[
                 dict(label="▶  Play", method="animate",
                      args=[None, dict(frame=dict(duration=frame_ms, redraw=False), transition=dict(duration=0),
@@ -69,7 +69,7 @@ def attach_animation(fig, n_static: int, frames: list, labels: list, frame_ms: i
 def _marker(x, y, color, text=None, size=16, symbol="diamond"):
     return go.Scatter(x=[x], y=[y], mode="markers+text" if text else "markers",
                       text=[text] if text else None, textposition="top center", textfont=dict(color=color),
-                      marker=dict(size=size, color=color, symbol=symbol, line=dict(color=TEXT, width=1.5)),
+                      marker=dict(size=size, color=color, symbol=symbol, line=dict(color="#ffffff", width=1.5)),
                       showlegend=False, hoverinfo="skip")
 
 
@@ -122,7 +122,7 @@ def cco_figure(cont, step, cruise_alt, pres, n_frames=90):
     _level_traces(fig, step, "dist_nm")
     for df, col, nm in ((cont, GREEN, "ToC (CCO)"), (step, AMBER, "ToC (stepped)")):
         fig.add_trace(go.Scatter(x=[df.dist_nm.iloc[-1]], y=[cruise_alt], mode="markers", name=nm, showlegend=False,
-                                 marker=dict(size=11, color=col, symbol="star", line=dict(color=TEXT, width=1)),
+                                 marker=dict(size=11, color=col, symbol="star", line=dict(color="#fff", width=1)),
                                  hovertemplate=nm + "<br>%{x:.1f} NM<extra></extra>"))
     fig.add_hline(y=cruise_alt, line=dict(color=MUTED, dash="dot", width=1),
                   annotation_text=f"Initial cruise FL{cruise_alt / 100:.0f}", annotation_position="top left",
@@ -167,11 +167,11 @@ def dtg_figure(dtg, elev, current_alt, path_fn, pres):
                              line=dict(color=GREEN, width=4), hovertemplate="%{x:.1f} NM to go, %{y:,.0f} ft<extra></extra>"))
     fig.add_trace(go.Scatter(x=[dtg], y=[path_fn(dtg)], mode="markers+text", name="Suggested altitude",
                              text=[f"{path_fn(dtg):,.0f} ft"], textposition="bottom right",
-                             marker=dict(size=13, color=GREEN, symbol="diamond", line=dict(color=TEXT, width=1.5))))
+                             marker=dict(size=13, color=GREEN, symbol="diamond", line=dict(color="#fff", width=1.5))))
     if current_alt is not None:
         fig.add_trace(go.Scatter(x=[dtg], y=[current_alt], mode="markers+text", name="Current altitude",
                                  text=[f"{current_alt:,.0f} ft"], textposition="top right",
-                                 marker=dict(size=13, color=AMBER, symbol="triangle-up", line=dict(color=TEXT, width=1.5))))
+                                 marker=dict(size=13, color=AMBER, symbol="triangle-up", line=dict(color="#fff", width=1.5))))
     style(fig, "Distance-to-Go: suggested altitude on a 3-degree path", pres, height=420, bottom=80)
     fig.update_xaxes(title="Distance to go to the airport (NM)", autorange="reversed")
     fig.update_yaxes(title="Altitude (ft)", tickformat=",")
@@ -185,8 +185,8 @@ def cdfa_figure(cdfa, dd, g, faf_alt, thr_elev, mda, terrain_fn, zones, pres, n_
     fig = go.Figure()
     xs = np.linspace(g["d_faf"] + 1.0, -0.6, 400)
     ter = terrain_fn(xs)
-    fig.add_trace(go.Scatter(x=xs, y=ter, mode="lines", name="Terrain", fill="tozeroy", fillcolor="rgba(100,116,139,.28)",
-                             line=dict(color="#64748b", width=1.5), hovertemplate="Terrain %{y:,.0f} ft<extra></extra>"))
+    fig.add_trace(go.Scatter(x=xs, y=ter, mode="lines", name="Terrain", fill="tozeroy", fillcolor="rgba(120,140,170,.28)",
+                             line=dict(color="#7f93b5", width=1.5), hovertemplate="Terrain %{y:,.0f} ft<extra></extra>"))
     fig.add_trace(_line(dd, "to_go_nm", "Dive and drive", AMBER, 3, "dash", "Dive and drive"))
     above = cdfa[cdfa.alt_ft >= g["dda"]]
     below = cdfa[cdfa.alt_ft <= g["dda"]]
@@ -325,10 +325,10 @@ def concept_map(pres):
                                  hoverinfo="name"))
     for x, y, txt, col, anchor in ((8, 46, "CCO", GREEN, "right"), (75, 52, "CDO", CYAN, "left"), (95, 22, "CDFA", AMBER, "left")):
         fig.add_annotation(x=x, y=y, text=f"<b>{txt}</b>", showarrow=False, xanchor=anchor, font=dict(color=col, size=_fs(pres) + 4))
-    fig.add_shape(type="rect", x0=0, x1=100, y0=-22, y1=-8, fillcolor="rgba(3,105,161,.10)", line=dict(color=CYAN, width=1))
+    fig.add_shape(type="rect", x0=0, x1=100, y0=-22, y1=-8, fillcolor="rgba(56,189,248,.12)", line=dict(color=CYAN, width=1))
     fig.add_annotation(x=50, y=-15, showarrow=False, font=dict(color=CYAN, size=_fs(pres)),
                        text="CNS: Communication (CPDLC) + Navigation (PBN, VNAV) + Surveillance (ADS-B, radar)")
-    fig.add_shape(type="rect", x0=0, x1=100, y0=-42, y1=-28, fillcolor="rgba(10,138,74,.10)", line=dict(color=GREEN, width=1))
+    fig.add_shape(type="rect", x0=0, x1=100, y0=-42, y1=-28, fillcolor="rgba(57,255,136,.10)", line=dict(color=GREEN, width=1))
     fig.add_annotation(x=50, y=-35, showarrow=False, font=dict(color=GREEN, size=_fs(pres)),
                        text="ATM: Trajectory-Based Operations + AMAN / DMAN + cross-sector coordination")
     style(fig, "Where each technique sits (schematic, not to scale)", pres, height=430, bottom=30)
@@ -359,7 +359,7 @@ def comparison_figure(kind: str, pres: bool):
             fig.add_trace(go.Bar(x=BENEFIT_DIMS, y=vals, name=op, marker_color=col))
     style(fig, "Benefits explicitly cited in the guide (1 = cited, 0 = not cited)", pres, height=500, bottom=60)
     if kind == "Radar":
-        fig.update_layout(polar=dict(bgcolor="#f1f5fb", radialaxis=dict(range=[0, 1], tickvals=[0, 1], gridcolor=GRID, tickfont=dict(size=_fs(pres))),
+        fig.update_layout(polar=dict(bgcolor="#0c1424", radialaxis=dict(range=[0, 1], tickvals=[0, 1], gridcolor=GRID, tickfont=dict(size=_fs(pres))),
                                      angularaxis=dict(gridcolor=GRID, tickfont=dict(size=_fs(pres)))))
     else:
         fig.update_layout(barmode="group")

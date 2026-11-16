@@ -35,7 +35,7 @@ multi-aircraft mode), Class Quiz.
 |---|---|
 | `app.py` | Entry point: navigation, theme, routing, fixed footer |
 | `physics.py` | Pure calculations (no Streamlit/Plotly), easy to test |
-| `charts.py` | Plotly figure builders and the shared light template |
+| `charts.py` | Plotly figure builders and the shared dark template |
 | `sims.py` | Simulator user interfaces and input validation |
 | `views.py` | Content pages and the quiz |
 | `content.py` | Educational text and quiz questions taken from the guide |
@@ -50,4 +50,4 @@ multi-aircraft mode), Class Quiz.
 *This tool is for educational purposes only and must not be used for real ATC operations or procedure design.*
 
 ## Theme
-The light colour theme (chosen for classroom projectors) is set in `.streamlit/config.toml` (keep this folder next to app.py). Extra styling lives in `theme.py`.
+The dark colour theme is set in `.streamlit/config.toml` (keep this folder next to app.py). Extra styling lives in `theme.py`.
