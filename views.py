@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+import author as A
 import charts
 import content as C
 import sims
@@ -22,7 +23,7 @@ def _ref_html(title, publisher, url, tag):
 
 # ----------------------------------------------------------------------------
 def home() -> None:
-    st.markdown(hero(), unsafe_allow_html=True)
+    st.markdown(hero(A.hero_credit()), unsafe_allow_html=True)
     st.markdown("## Lesson objectives")
     st.markdown(card("By the end of this class you can", "<ol>" + "".join(f"<li>{o}</li>" for o in C.OBJECTIVES) + "</ol>", "g"),
                 unsafe_allow_html=True)
@@ -134,3 +135,20 @@ def quiz() -> None:
         st.markdown(metric_grid([metric_card("Score so far", f"{score} / {answered}", "", None, "Answer all questions for the final score")]),
                     unsafe_allow_html=True)
     st.button("Restart quiz", key="sec-quiz-reset", on_click=_reset_quiz)
+
+
+# ----------------------------------------------------------------------------
+def about() -> None:
+    page_header("About the author", "Who built this lab, why, and how pilots and controllers can help improve it.")
+    st.markdown(A.author_hero(), unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown(card("Why I built this", f"<p>{A.ABOUT_PROJECT}</p>", "g"), unsafe_allow_html=True)
+        st.markdown(card("What is inside", bullets(A.BUILT_POINTS), "c"), unsafe_allow_html=True)
+    with c2:
+        st.markdown(card("Feedback from pilots and controllers", bullets(A.FEEDBACK_POINTS), "a"), unsafe_allow_html=True)
+        chips = "".join(f'<span class="chip c">{t}</span>' for t in A.TECH)
+        st.markdown(card("Built with", f"<p>{chips}</p><p>Open source. The code is on "
+                         f'<a href="{A.GITHUB}" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>', "g"),
+                    unsafe_allow_html=True)
+    st.caption("Educational tool only. Not for real ATC operations or procedure design.")

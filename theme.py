@@ -255,14 +255,15 @@ def css(presentation: bool) -> str:
 _STATUS_LABEL = {"ok": "OK", "warn": "WARNING", "conflict": "CONFLICT"}
 
 
-def hero() -> str:
-    return H("""
+def hero(credit: str = "") -> str:
+    return H(f"""
     <div class="hero">
       <div>
         <div class="hero-kicker">Interactive ATC classroom lab</div>
         <h1 class="hero-title">CCO, CDO and CDFA</h1>
         <p class="hero-sub">See how continuous climb, continuous descent and continuous final approach
         save fuel, cut noise and remove CFIT risk, and how controllers and CNS/ATM tools make them possible.</p>
+        {credit}
         <span class="chip g">CCO</span><span class="chip c">CDO</span><span class="chip a">CDFA</span>
         <span class="chip">CNS</span><span class="chip">ATM / TBO</span>
       </div>
@@ -301,5 +302,5 @@ def callout(text: str, kind: str = "info") -> str:
     return f'<div class="callout {kind}">{text}</div>'
 
 
-def footer() -> str:
-    return f'<div class="fixed-footer">{FOOTER_TEXT}</div>'
+def footer(extra: str = "") -> str:
+    return f'<div class="fixed-footer">{FOOTER_TEXT}{extra}</div>'

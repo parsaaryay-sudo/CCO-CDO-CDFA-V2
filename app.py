@@ -5,11 +5,12 @@ Educational use only. Not for real ATC operations or procedure design.
 """
 import streamlit as st
 
+import author
 import sims
 import views
 from theme import css, footer
 
-st.set_page_config(page_title="CCO, CDO and CDFA Lab", page_icon="📡", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="CCO, CDO and CDFA Lab | Aryan Feyzi", page_icon="📡", layout="wide", initial_sidebar_state="expanded")
 
 # Keep every widget value (keys starting with "w_") alive when the user switches pages.
 # Streamlit drops the state of widgets that are not rendered, so we re-assign it on each run.
@@ -17,7 +18,7 @@ for _k in list(st.session_state.keys()):
     if _k.startswith("w_"):
         st.session_state[_k] = st.session_state[_k]
 
-PAGES = ["Home", "CCO", "CDO", "CDFA", "Comparison", "CNS & ATM", "Challenges & Trade-offs", "Class Quiz"]
+PAGES = ["Home", "CCO", "CDO", "CDFA", "Comparison", "CNS & ATM", "Challenges & Trade-offs", "Class Quiz", "About"]
 st.session_state.setdefault("w_nav", "Home")
 st.session_state.setdefault("w_pres", False)
 
@@ -28,8 +29,10 @@ with st.sidebar:
     st.divider()
     st.toggle("Presentation mode", key="w_pres", help="Larger fonts, high contrast, secondary controls hidden.")
     st.caption("Content is based on the supplied CCO / CDO / CDFA guide.")
+    st.markdown(author.sidebar_card(), unsafe_allow_html=True)
 
 st.markdown(css(sims.is_pres()), unsafe_allow_html=True)
+st.markdown(author.author_css(), unsafe_allow_html=True)
 
 if page == "Home":
     views.home()
@@ -45,7 +48,9 @@ elif page == "CNS & ATM":
     views.cns_atm()
 elif page == "Challenges & Trade-offs":
     views.challenges()
-else:
+elif page == "Class Quiz":
     views.quiz()
+else:
+    views.about()
 
-st.markdown(footer(), unsafe_allow_html=True)
+st.markdown(footer(author.footer_credit()), unsafe_allow_html=True)
